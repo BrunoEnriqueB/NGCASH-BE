@@ -1,4 +1,4 @@
-import { Accounts, Users } from '@prisma/client';
+import { Users } from '@prisma/client';
 import prismaClient from '../config/db';
 import bcrypt from 'bcrypt';
 import UserAndBalance from '../domain/UserAndBalance';
@@ -7,6 +7,14 @@ import AccountsService from './AccountServices';
 class UserService {
   public static async getUser(username: string): Promise<Users> {
     const user = await prismaClient.users.findFirst({ where: { username } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  }
+
+  public static async getUserByAccountId(accountId: number) {
+    const user = await prismaClient.users.findFirst({ where: { accountId } });
     if (!user) {
       throw new Error('User not found');
     }

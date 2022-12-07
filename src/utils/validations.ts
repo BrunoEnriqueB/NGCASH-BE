@@ -37,12 +37,31 @@ const ammount = () =>
     })
     .transform((val) => Number(val));
 
+const filterType = () =>
+  z
+    .string()
+    .length(1)
+    .transform((val) => Number(val))
+    .default('1');
+
+const filterOrder = () => z.enum(['asc', 'desc']).default('asc');
+
+const filterByDate = () =>
+  z
+    .string()
+    .regex(/(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)
+    .transform((date) => new Date(date))
+    .optional();
+
 const validations = {
   username,
   password,
   from,
   to,
   ammount,
+  filterType,
+  filterOrder,
+  filterByDate,
 };
 
 export default validations;
