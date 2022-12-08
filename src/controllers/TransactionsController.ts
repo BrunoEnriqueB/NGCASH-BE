@@ -36,6 +36,13 @@ router.get(
         .status(401)
         .json({ message: 'You are not allowed to transfer to your self' });
     }
+
+    if (ammount <= 0) {
+      return res
+        .status(401)
+        .json({ message: 'Ammount must be grather than 0' });
+    }
+
     try {
       await TransactionService.transfer(from, to, ammount);
 
