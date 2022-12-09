@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.ts",
-    "dev:docker": "docker-compose up --build"
+    "dev:docker": "docker-compose up --build",
+    "build": "tsc && mkdir dist_src && mv -v dist/* dist_src/ && mv dist_src dist/src && cp package.json dist/package.json"
   },
   "author": "Bruno Enrique",
   "license": "MIT",
